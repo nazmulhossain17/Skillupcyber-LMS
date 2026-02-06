@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Edu Pro",
+  title: "skillupcyber",
   description: "Learn from the best instructors worldwide",
 };
 

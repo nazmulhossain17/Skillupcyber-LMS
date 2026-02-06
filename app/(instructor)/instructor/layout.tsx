@@ -14,7 +14,7 @@ import { QueryProvider } from "@/providers/QueryProvider";
 export const metadata: Metadata = {
   title: {
     template: "Instuctor Dashboard | %s",
-    default: "EDU PRO Instuctor Dashboard",
+    default: "SkillupCyber Instuctor Dashboard",
   },
   description:
     "Next.js instuctor dashboard toolkit with 200+ templates, UI components, and integrations for fast dashboard development.",

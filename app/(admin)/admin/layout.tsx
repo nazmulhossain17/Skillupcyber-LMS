@@ -14,7 +14,7 @@ import { Header } from "@/components/admin/Layouts/header";
 export const metadata: Metadata = {
   title: {
     template: "Admin Dashboard | %s",
-    default: "EDU PRO Admin Dashboard",
+    default: "SkillupCyber Admin Dashboard",
   },
   description:
     "Next.js admin dashboard toolkit with 200+ templates, UI components, and integrations for fast dashboard development.",
