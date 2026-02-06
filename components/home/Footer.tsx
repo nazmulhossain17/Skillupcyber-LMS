@@ -12,7 +12,7 @@ export function Footer() {
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
                 <span className="text-lg font-bold text-primary-foreground">E</span>
               </div>
-              <span className="text-xl font-bold text-foreground">EduPro</span>
+              <span className="text-xl font-bold text-foreground">SkillUpCyber</span>
             </Link>
             <p className="mt-4 text-pretty text-sm leading-relaxed text-muted-foreground">
               Transform your future with expert-led online courses. Learn new skills, advance your career, and achieve your goals with EduPro.

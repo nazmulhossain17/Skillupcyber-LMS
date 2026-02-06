@@ -85,9 +85,9 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-              <span className="text-lg font-bold text-primary-foreground">E</span>
+              <span className="text-lg font-bold text-primary-foreground">S</span>
             </div>
-            <span className="text-xl font-bold">EduPro</span>
+            <span className="text-xl font-bold">SkillUpCyber</span>
           </Link>
 
           {/* Desktop Nav - Show different items based on auth status */}
