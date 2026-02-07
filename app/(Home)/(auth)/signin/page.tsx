@@ -97,7 +97,7 @@ export default function SignInPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
                 <span className="text-2xl font-bold text-primary-foreground">E</span>
               </div>
-              <span className="text-2xl font-bold text-foreground">EduPro</span>
+              <span className="text-2xl font-bold text-foreground">Skillupcyber</span>
             </Link>
           </div>
 

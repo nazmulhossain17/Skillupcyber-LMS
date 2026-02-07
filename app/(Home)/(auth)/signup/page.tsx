@@ -76,7 +76,7 @@ export default function SignUpPage() {
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground text-xl">E</span>
             </div>
-            EduPro
+            Skillupcyber
           </Link>
         </div>
 
