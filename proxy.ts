@@ -35,7 +35,15 @@ async function authMiddleware(request: NextRequest) {
   const session = await auth.api.getSession({ headers: request.headers })
   const isLoggedIn = !!session?.user
 
-  const publicPaths = ["/", "/signin", "/signup", "/courses", "/testing"]
+  const publicPaths = [
+  "/",
+  "/signin",
+  "/signup",
+  "/forgot-password",  // ← Added
+  "/reset-password",   // ← Added
+  "/courses",
+  "/course",
+]
   const isPublic = publicPaths.some((p) => pathname === p || pathname.startsWith(p + "/"))
 
   // Redirect logged out users to signin

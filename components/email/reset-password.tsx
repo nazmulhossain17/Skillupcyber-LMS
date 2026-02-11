@@ -1,3 +1,8 @@
+// ============================================
+// FILE: components/email/reset-password.tsx
+// Responsive password reset email template (Resend/React Email)
+// ============================================
+
 import * as React from 'react';
 import {
   Body,
@@ -7,118 +12,299 @@ import {
   Heading,
   Hr,
   Html,
+  Img,
   Link,
   Preview,
   Section,
   Text,
-  Tailwind,
 } from '@react-email/components';
 
 interface ForgotPasswordEmailProps {
   userEmail: string;
   resetUrl: string;
+  userName?: string;
 }
 
-const ForgotPasswordEmail = (props: ForgotPasswordEmailProps) => {
-  const { userEmail, resetUrl} = props;
+const ForgotPasswordEmail = ({
+  userEmail,
+  resetUrl,
+  userName,
+}: ForgotPasswordEmailProps) => {
+  const previewText = `Reset your EduPro password`;
 
   return (
-    <Html lang="en" dir="ltr">
+    <Html>
       <Head />
-      <Preview>Reset your password - Action required</Preview>
-      <Tailwind>
-        <Body className="bg-gray-100 font-sans py-[40px]">
-          <Container className="bg-white rounded-[8px] shadow-sm max-w-[600px] mx-auto px-[48px] py-[40px]">
-            {/* Header */}
-            <Section className="text-center mb-[32px]">
-              <Heading className="text-[28px] font-bold text-gray-900 m-0 mb-[8px]">
-                Reset Your Password
-              </Heading>
-              <Text className="text-[16px] text-gray-600 m-0">
-                We received a request to reset your password
-              </Text>
+      <Preview>{previewText}</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          {/* Header with Logo */}
+          <Section style={headerSection}>
+            <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+              <tr>
+                <td align="center">
+                  <div style={logoContainer}>
+                    <span style={logoText}>E</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td align="center">
+                  <Text style={brandName}>EduPro</Text>
+                </td>
+              </tr>
+            </table>
+          </Section>
+
+          {/* Main Content */}
+          <Section style={contentSection}>
+            <Heading style={heading}>Reset Your Password</Heading>
+            
+            <Text style={paragraph}>
+              Hi{userName ? ` ${userName}` : ''},
+            </Text>
+            
+            <Text style={paragraph}>
+              We received a request to reset the password for the account associated with{' '}
+              <span style={emailHighlight}>{userEmail}</span>.
+            </Text>
+            
+            <Text style={paragraph}>
+              Click the button below to create a new password. This link will expire in{' '}
+              <strong>24 hours</strong> for security reasons.
+            </Text>
+
+            {/* CTA Button */}
+            <Section style={buttonContainer}>
+              <Button style={button} href={resetUrl}>
+                Reset Password
+              </Button>
             </Section>
 
-            {/* Main Content */}
-            <Section className="mb-[32px]">
-              <Text className="text-[16px] text-gray-800 leading-[24px] mb-[16px]">
-                Hello,
-              </Text>
-              <Text className="text-[16px] text-gray-800 leading-[24px] mb-[16px]">
-                We received a request to reset the password for your account associated with <strong>{userEmail}</strong>.
-              </Text>
-              <Text className="text-[16px] text-gray-800 leading-[24px] mb-[24px]">
-                If you made this request, click the button below to reset your password:
-              </Text>
+            {/* Alternative Link */}
+            <Text style={linkText}>
+              Or copy and paste this URL into your browser:
+            </Text>
+            <Text style={urlText}>
+              <Link href={resetUrl} style={urlLink}>
+                {resetUrl}
+              </Link>
+            </Text>
 
-              {/* Reset Button */}
-              <Section className="text-center mb-[24px]">
-                <Button
-                  href={resetUrl}
-                  className="bg-blue-600 text-white px-[32px] py-[16px] rounded-[8px] text-[16px] font-semibold no-underline box-border inline-block"
-                >
-                  Reset Password
-                </Button>
-              </Section>
-
-              <Text className="text-[14px] text-gray-600 leading-[20px] mb-[16px]">
-                Or copy and paste this link into your browser:
-              </Text>
-              <Text className="text-[14px] text-blue-600 leading-[20px] mb-[24px] break-all">
-                <Link href={resetUrl} className="text-blue-600 underline">
-                  {resetUrl}
-                </Link>
-              </Text>
-
-              <Text className="text-[16px] text-gray-800 leading-[24px] mb-[16px]">
-                This link will expire in 24 hours for security reasons.
-              </Text>
-
-              <Text className="text-[16px] text-gray-800 leading-[24px]">
-                If you didn't request a password reset, please ignore this email or contact our support team if you have concerns.
-              </Text>
-            </Section>
-
-            <Hr className="border-gray-200 my-[32px]" />
+            <Hr style={divider} />
 
             {/* Security Notice */}
-            <Section className="bg-gray-50 rounded-[8px] p-[20px] mb-[32px]">
-              <Text className="text-[14px] text-gray-700 leading-[20px] m-0 mb-[8px]">
-                <strong>Security tip:</strong>
-              </Text>
-              <Text className="text-[14px] text-gray-700 leading-[20px] m-0">
-                Never share your password with anyone. Our team will never ask for your password via email.
-              </Text>
+            <Section style={securitySection}>
+              <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+                <tr>
+                  <td width="40" valign="top">
+                    <div style={iconContainer}>🔒</div>
+                  </td>
+                  <td>
+                    <Text style={securityTitle}>Security Notice</Text>
+                    <Text style={securityText}>
+                      If you didn't request this password reset, you can safely ignore this email. 
+                      Your password will remain unchanged.
+                    </Text>
+                  </td>
+                </tr>
+              </table>
             </Section>
+          </Section>
 
-            {/* Footer */}
-            <Section className="text-center">
-              <Text className="text-[14px] text-gray-600 leading-[20px] mb-[8px]">
-                Best regards,<br />
-                The Security Team
-              </Text>
-              <Hr className="border-gray-200 my-[20px]" />
-              <Text className="text-[12px] text-gray-500 leading-[16px] m-0 mb-[4px]">
-                Your Company Name
-              </Text>
-              <Text className="text-[12px] text-gray-500 leading-[16px] m-0 mb-[4px]">
-                123 Business Street, Suite 100
-              </Text>
-              <Text className="text-[12px] text-gray-500 leading-[16px] m-0 mb-[8px]">
-                City, State 12345
-              </Text>
-              <Link href="#" className="text-[12px] text-gray-500 underline">
-                Unsubscribe
+          {/* Footer */}
+          <Section style={footer}>
+            <Text style={footerText}>
+              This email was sent by EduPro. If you have any questions, please contact our{' '}
+              <Link href="mailto:support@edupro.com" style={footerLink}>
+                support team
               </Link>
-              <Text className="text-[12px] text-gray-500 leading-[16px] m-0 mt-[8px]">
-                © 2025 Your Company Name. All rights reserved.
-              </Text>
-            </Section>
-          </Container>
-        </Body>
-      </Tailwind>
+              .
+            </Text>
+            <Text style={footerAddress}>
+              © {new Date().getFullYear()} EduPro. All rights reserved.
+            </Text>
+            <Text style={footerSmall}>
+              You're receiving this email because you requested a password reset for your EduPro account.
+            </Text>
+          </Section>
+        </Container>
+      </Body>
     </Html>
   );
 };
 
 export default ForgotPasswordEmail;
+
+// Styles
+const main = {
+  backgroundColor: '#f4f4f5',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif',
+  padding: '20px 0',
+};
+
+const container = {
+  backgroundColor: '#ffffff',
+  borderRadius: '12px',
+  margin: '0 auto',
+  maxWidth: '600px',
+  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+};
+
+const headerSection = {
+  backgroundColor: '#7c3aed',
+  borderRadius: '12px 12px 0 0',
+  padding: '32px 20px',
+};
+
+const logoContainer = {
+  backgroundColor: '#ffffff',
+  borderRadius: '12px',
+  display: 'inline-block',
+  height: '48px',
+  width: '48px',
+  lineHeight: '48px',
+  textAlign: 'center' as const,
+};
+
+const logoText = {
+  color: '#7c3aed',
+  fontSize: '24px',
+  fontWeight: '700' as const,
+};
+
+const brandName = {
+  color: '#ffffff',
+  fontSize: '24px',
+  fontWeight: '700' as const,
+  margin: '12px 0 0 0',
+};
+
+const contentSection = {
+  padding: '32px 40px',
+};
+
+const heading = {
+  color: '#18181b',
+  fontSize: '24px',
+  fontWeight: '700' as const,
+  lineHeight: '1.3',
+  margin: '0 0 24px 0',
+  textAlign: 'center' as const,
+};
+
+const paragraph = {
+  color: '#3f3f46',
+  fontSize: '16px',
+  lineHeight: '26px',
+  margin: '0 0 16px 0',
+};
+
+const emailHighlight = {
+  color: '#7c3aed',
+  fontWeight: '600' as const,
+};
+
+const buttonContainer = {
+  textAlign: 'center' as const,
+  margin: '32px 0',
+};
+
+const button = {
+  backgroundColor: '#7c3aed',
+  borderRadius: '8px',
+  color: '#ffffff',
+  display: 'inline-block',
+  fontSize: '16px',
+  fontWeight: '600' as const,
+  lineHeight: '1',
+  padding: '16px 32px',
+  textAlign: 'center' as const,
+  textDecoration: 'none',
+};
+
+const linkText = {
+  color: '#71717a',
+  fontSize: '14px',
+  lineHeight: '20px',
+  margin: '0 0 8px 0',
+  textAlign: 'center' as const,
+};
+
+const urlText = {
+  margin: '0 0 24px 0',
+  textAlign: 'center' as const,
+  wordBreak: 'break-all' as const,
+};
+
+const urlLink = {
+  color: '#7c3aed',
+  fontSize: '14px',
+  textDecoration: 'underline',
+};
+
+const divider = {
+  borderColor: '#e4e4e7',
+  borderTop: '1px solid #e4e4e7',
+  margin: '24px 0',
+};
+
+const securitySection = {
+  backgroundColor: '#fef3c7',
+  borderRadius: '8px',
+  padding: '16px',
+};
+
+const iconContainer = {
+  fontSize: '20px',
+  lineHeight: '1',
+};
+
+const securityTitle = {
+  color: '#92400e',
+  fontSize: '14px',
+  fontWeight: '600' as const,
+  margin: '0 0 4px 0',
+};
+
+const securityText = {
+  color: '#a16207',
+  fontSize: '14px',
+  lineHeight: '20px',
+  margin: '0',
+};
+
+const footer = {
+  backgroundColor: '#f4f4f5',
+  borderRadius: '0 0 12px 12px',
+  padding: '24px 40px',
+};
+
+const footerText = {
+  color: '#71717a',
+  fontSize: '14px',
+  lineHeight: '22px',
+  margin: '0 0 8px 0',
+  textAlign: 'center' as const,
+};
+
+const footerLink = {
+  color: '#7c3aed',
+  textDecoration: 'underline',
+};
+
+const footerAddress = {
+  color: '#a1a1aa',
+  fontSize: '12px',
+  lineHeight: '18px',
+  margin: '0 0 8px 0',
+  textAlign: 'center' as const,
+};
+
+const footerSmall = {
+  color: '#a1a1aa',
+  fontSize: '11px',
+  lineHeight: '16px',
+  margin: '0',
+  textAlign: 'center' as const,
+};
