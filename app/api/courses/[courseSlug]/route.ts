@@ -68,8 +68,44 @@ export async function GET(
     return NextResponse.json({ error: "Course not found" }, { status: 404 });
   }
 
-  // Only return published courses to the public
-  
+  // ============================================
+  // SEC-003 FIX: Unpublished course access control
+  // Only instructor (owner) or admin can view unpublished courses
+  // ============================================
+  if (!courseData.published) {
+    const session = await auth.api.getSession({ headers: req.headers });
+    
+    // Not logged in - can't see unpublished courses
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Course not found" }, { status: 404 });
+    }
+
+    // Get the user's app profile to check role and ownership
+    const [appUser] = await db
+      .select({ id: app_users.id, role: app_users.role })
+      .from(app_users)
+      .where(eq(app_users.userId, session.user.id))
+      .limit(1);
+
+    if (!appUser) {
+      return NextResponse.json({ error: "Course not found" }, { status: 404 });
+    }
+
+    // Get the course's instructor ID
+    const [courseOwner] = await db
+      .select({ instructorId: courses.instructorId })
+      .from(courses)
+      .where(eq(courses.slug, courseSlug))
+      .limit(1);
+
+    const isOwner = courseOwner?.instructorId === appUser.id;
+    const isAdmin = appUser.role === 'admin';
+
+    // Only owner or admin can view unpublished courses
+    if (!isOwner && !isAdmin) {
+      return NextResponse.json({ error: "Course not found" }, { status: 404 });
+    }
+  }
 
   const course = {
     id: courseData.id,
